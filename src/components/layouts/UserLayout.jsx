@@ -1,5 +1,6 @@
 // routes
 import UserRoutes from "../routes/UserRoutes";
+import AppRoutes from "../routes/AppRoutes";
 
 const UserLayout = () => {
   return (
@@ -14,7 +15,8 @@ const UserLayout = () => {
       </div>
 
       <div className="m-auto w-[100%] min-h-[60%] flex flex-col justify-center">
-        <UserRoutes />
+        {/* <UserRoutes /> */}
+        <AppRoutes />
       </div>
     </div>
   );

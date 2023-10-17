@@ -1,7 +1,7 @@
 // import { useContext } from "react";
 // import AppContext from "../../../context/AppContext";
 
-// import bg from "../../../assets/images/login/login-side-img.png";
+import logo from "../../../assets/images/logo.jpeg";
 
 const Login = () => {
   return (
@@ -14,11 +14,11 @@ const Login = () => {
           logo
         </span>
 
-        {/* <img
-          src="your-logo.png" // Replace with your actual logo image source
+        <img
+          src={logo} // Replace with your actual logo image source
           alt="Logo"
           className="w-16 h-16" // Adjust the width and height as needed
-        /> */}
+        />
       </div>
 
       {/* Content */}

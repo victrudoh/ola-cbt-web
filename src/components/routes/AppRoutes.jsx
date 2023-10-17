@@ -4,14 +4,18 @@ import AppContext from "../../context/AppContext";
 
 // components
 import Layed from "../Layed";
-// import Error404 from "../../pages/error404/Error404";
+import Login from "../../pages/auth/login/Login";
+import ErrorPage from "../../pages/ErrorPage";
+
+// User
+import SelectCourse from "../../pages/user/selectCourse";
+import Test from "../../pages/user/test/Test";
+import TestCompleted from "../../pages/user/test/TestCompleted";
 
 const AppRoutes = () => {
-  const { activeUser, topbarTitle } = useContext(AppContext);
-  console.log(
-    "🚀 ~ file: AppRoutes.jsx:11 ~ AppRoutes ~ topbarTitle:",
-    topbarTitle
-  );
+  // const { activeUser, topbarTitle } = useContext(AppContext);
+
+  const activeUser = "admin";
 
   return (
     <Routes>
@@ -19,6 +23,12 @@ const AppRoutes = () => {
         {/* Admin */}
         {activeUser?.role === "admin" && (
           <>
+            <Route index element={<Login />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/user/select-course" element={<SelectCourse />} />
+            <Route path="/user/test" element={<Test />} />
+            <Route path="/user/test-completed" element={<TestCompleted />} />
+            <Route path="*" element={<ErrorPage />} />
             {/* <Route index element={<Caregivers />} /> */}
             {/* <Route path="/admin/caregivers" element={<Caregivers />} /> */}
           </>
@@ -27,11 +37,14 @@ const AppRoutes = () => {
         {/* Care Giver */}
         {activeUser?.role === "user" && (
           <>
-            {/* <Route index element={<CheckInOut />} /> */}
-            {/* <Route path="/caregiver/residents" element={<CGResidents />} /> */}
+            <Route index element={<Login />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/user/select-course" element={<SelectCourse />} />
+            <Route path="/user/test" element={<Test />} />
+            <Route path="/user/test-completed" element={<TestCompleted />} />
+            <Route path="*" element={<ErrorPage />} />
           </>
         )}
-        {/* <Route path="*" element={<Error404 />} /> */}
       </Route>
     </Routes>
   );
