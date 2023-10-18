@@ -39,8 +39,7 @@ const StudentDetails = () => {
           type="text"
           name="matric_no"
           id="matric_no"
-          value="OLA/NUR/001/BS
-"
+          value="OLA/NUR/001/BS"
           className="bg-gray-300/40 p-2 w-full rounded-lg"
         />
       </div>

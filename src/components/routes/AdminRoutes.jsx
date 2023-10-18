@@ -8,6 +8,8 @@ import ErrorPage from "../../pages/ErrorPage";
 
 import AllStudents from "../../pages/admin/students/AllStudents";
 import OneStudent from "../../pages/admin/students/OneStudent";
+import AllCourses from "../../pages/admin/courses/AllCourses";
+import OneCourse from "../../pages/admin/courses/OneCourse";
 
 const AdminRoutes = () => {
   return (
@@ -17,6 +19,8 @@ const AdminRoutes = () => {
         <Route path="/admin/students" element={<AllStudents />} />
         <Route path="/admin/students/one" element={<OneStudent />} />
         <Route path="/admin/students/add" element={<TestCompleted />} />
+        <Route path="/admin/courses" element={<AllCourses />} />
+        <Route path="/admin/courses/one" element={<OneCourse />} />
         <Route path="*" element={<ErrorPage />} />
       </Route>
     </Routes>
