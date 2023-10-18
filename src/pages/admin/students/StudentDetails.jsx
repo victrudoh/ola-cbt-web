@@ -18,6 +18,7 @@ const StudentDetails = () => {
           name="firstName"
           id="firstName"
           value="Matthew"
+          disabled
           className="bg-gray-300/40 p-2 w-full rounded-lg"
         />
       </div>
@@ -29,6 +30,7 @@ const StudentDetails = () => {
           name="lastName"
           id="lastName"
           value="Greg"
+          disabled
           className="bg-gray-300/40 p-2 w-full rounded-lg"
         />
       </div>
@@ -40,6 +42,7 @@ const StudentDetails = () => {
           name="matric_no"
           id="matric_no"
           value="OLA/NUR/001/BS"
+          disabled
           className="bg-gray-300/40 p-2 w-full rounded-lg"
         />
       </div>

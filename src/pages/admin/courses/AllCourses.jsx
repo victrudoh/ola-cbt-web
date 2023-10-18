@@ -8,6 +8,10 @@ const AllCourses = () => {
     navigate("/admin/courses/one");
   };
 
+  const addCourse = async () => {
+    navigate("/admin/courses/add");
+  };
+
   return (
     <>
       <div className="shadow-lg rounded-md bg-white p-4 w-full flex flex-col gap-4">
@@ -15,10 +19,13 @@ const AllCourses = () => {
           <input
             class="w-96 px-4 py-1 rounded-lg border-solid border-[0.5px] border-gray-400 text-[#87909E] text-lg focus:outline-none"
             type="text"
-            placeholder="Search..."
+            placeholder="Search course..."
           />
 
-          <span className="bg-teal-600 rounded-lg p-2 px-4 flex items-center justify-center outline-none text-white cursor-pointer hover:bg-teal-500">
+          <span
+            className="bg-teal-600 rounded-lg p-2 px-4 flex items-center justify-center outline-none text-white cursor-pointer hover:bg-teal-500"
+            onClick={addCourse}
+          >
             Add New Course
           </span>
         </div>

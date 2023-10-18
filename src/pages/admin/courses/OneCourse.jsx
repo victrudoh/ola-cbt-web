@@ -11,6 +11,10 @@ const OneCourse = () => {
     navigate("/admin/courses");
   };
 
+  const gotoAddQuestion = async () => {
+    navigate("/admin/questions/add");
+  };
+
   return (
     <>
       <div className="flex flex-col justify-between items-end w-full mt-10">
@@ -24,7 +28,7 @@ const OneCourse = () => {
           {switchPanel === "questions" && (
             <span
               className="bg-teal-600 rounded-lg p-2 px-4 flex items-center justify-center outline-none text-white cursor-pointer hover:bg-teal-500 mr-14"
-              onClick={goBack}
+              onClick={gotoAddQuestion}
             >
               Add New Question
             </span>

@@ -21,13 +21,13 @@ const StudentResult = () => {
 
           <tbody>
             {/* <div className="my-2"></div> */}
-            <tr className="h-12 bg-teal-400/20 cursor-pointer hover:bg-teal-400/40">
+            <tr className="h-12 bg-teal-400/20">
               <td>1</td>
               <td>Computer Science</td>
               <td>13 0f 60</td>
             </tr>
             <div className="mb-5"></div>
-            <tr className="h-12 bg-teal-400/20 cursor-pointer hover:bg-teal-400/40">
+            <tr className="h-12 bg-teal-400/20">
               <td>1</td>
               <td>Nursing</td>
               <td>40 0f 60</td>
