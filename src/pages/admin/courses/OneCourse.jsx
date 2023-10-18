@@ -21,12 +21,14 @@ const OneCourse = () => {
           >
             Back
           </span>{" "}
-          <span
-            className="bg-teal-600 rounded-lg p-2 px-4 flex items-center justify-center outline-none text-white cursor-pointer hover:bg-teal-500 mr-14"
-            onClick={goBack}
-          >
-            Add New
-          </span>
+          {switchPanel === "questions" && (
+            <span
+              className="bg-teal-600 rounded-lg p-2 px-4 flex items-center justify-center outline-none text-white cursor-pointer hover:bg-teal-500 mr-14"
+              onClick={goBack}
+            >
+              Add New Question
+            </span>
+          )}
         </div>
         <div className="w-full flex justify-between p-4 px-14">
           <div className="flex flex-col justify-center items-center w-[20%] shadow-lg bg-white p-4 gap-6 rounded-lg h-[10rem]">

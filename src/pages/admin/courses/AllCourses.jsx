@@ -19,7 +19,7 @@ const AllCourses = () => {
           />
 
           <span className="bg-teal-600 rounded-lg p-2 px-4 flex items-center justify-center outline-none text-white cursor-pointer hover:bg-teal-500">
-            Add New +
+            Add New Course
           </span>
         </div>
         <div className="w-full mx-auto mt-5  flex gap-12 p-4 flex-wrap ml-4">

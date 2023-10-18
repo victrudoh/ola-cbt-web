@@ -11,16 +11,16 @@ const AllStudents = () => {
   return (
     <>
       <div className="shadow-lg rounded-md bg-white p-4 w-full flex flex-col gap-4">
-        <div className="flex justify-between items-center w-full">
+        <div className="flex justify-end items-center w-full">
           <input
             class="w-96 px-4 py-1 rounded-lg border-solid border-[0.5px] border-gray-400 text-[#87909E] text-lg focus:outline-none"
             type="text"
             placeholder="Search..."
           />
 
-          <span className="bg-teal-600 rounded-lg p-2 px-4 flex items-center justify-center outline-none text-white cursor-pointer hover:bg-teal-500">
-            Add New +
-          </span>
+          {/* <span className="bg-teal-600 rounded-lg p-2 px-4 flex items-center justify-center outline-none text-white cursor-pointer hover:bg-teal-500">
+            Add New Student
+          </span> */}
         </div>
         <div className="w-full mt-5">
           <table className="w-full text-center table-fixed">

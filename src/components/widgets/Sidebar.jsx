@@ -4,7 +4,7 @@ import logo from "../../assets/images/logo.jpeg";
 import { useState } from "react";
 
 const Sidebar = () => {
-  const [activeTab, setActiveTab] = useState("students");
+  const [activeTab, setActiveTab] = useState("courses");
   return (
     <div className="flex flex-col w-[180px] bg-white h-screen shadow-md">
       {/* Logo in the top-left corner */}
@@ -23,19 +23,6 @@ const Sidebar = () => {
       {/* Menu Items */}
       <div className="my-5 w-full flex flex-col gap-4">
         <NavLink
-          onClick={() => setActiveTab("students")}
-          activeClassName="active"
-          exact
-          to="/admin/students"
-          className={
-            activeTab === "students"
-              ? "w-full p-3 flex items-center justify-evenly text-white bg-teal-600 transition-all duration-300 ease-in-out rounded-tr rounded-br ml-3 no-underline hover:text-white"
-              : "w-full p-3 flex items-center justify-evenly text-white bg-teal-500 transition-all duration-300 ease-in-out rounded-tr rounded-br hover:text-white hover:bg-teal-600 hover:ml-3"
-          }
-        >
-          <h3>Students</h3>
-        </NavLink>
-        <NavLink
           onClick={() => setActiveTab("courses")}
           activeClassName="active"
           exact
@@ -47,6 +34,19 @@ const Sidebar = () => {
           }
         >
           <h3>Courses</h3>
+        </NavLink>
+        <NavLink
+          onClick={() => setActiveTab("students")}
+          activeClassName="active"
+          exact
+          to="/admin/students"
+          className={
+            activeTab === "students"
+              ? "w-full p-3 flex items-center justify-evenly text-white bg-teal-600 transition-all duration-300 ease-in-out rounded-tr rounded-br ml-3 no-underline hover:text-white"
+              : "w-full p-3 flex items-center justify-evenly text-white bg-teal-500 transition-all duration-300 ease-in-out rounded-tr rounded-br hover:text-white hover:bg-teal-600 hover:ml-3"
+          }
+        >
+          <h3>Students</h3>
         </NavLink>
       </div>
     </div>

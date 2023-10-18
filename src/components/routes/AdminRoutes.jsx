@@ -14,8 +14,8 @@ import OneCourse from "../../pages/admin/courses/OneCourse";
 const AdminRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<Layed />}>
-        <Route index element={<AllStudents />} />
+      <Route path="/admin" element={<Layed />}>
+        <Route index element={<AllCourses />} />
         <Route path="/admin/students" element={<AllStudents />} />
         <Route path="/admin/students/one" element={<OneStudent />} />
         <Route path="/admin/students/add" element={<TestCompleted />} />
