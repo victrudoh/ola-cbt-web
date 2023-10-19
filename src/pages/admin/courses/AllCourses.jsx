@@ -4,10 +4,6 @@ import AppContext from "../../../context/AppContext";
 
 const AllCourses = () => {
   const { allCourses, getAllQuestions } = useContext(AppContext);
-  console.log(
-    "🚀 ~ file: AllCourses.jsx:7 ~ AllCourses ~ allCourses:",
-    allCourses
-  );
 
   const navigate = useNavigate();
 
