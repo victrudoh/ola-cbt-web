@@ -17,7 +17,7 @@ import EditQuestion from "../../pages/admin/courses/EditQuestion";
 const AdminRoutes = () => {
   return (
     <Routes>
-      <Route path="/admin" element={<Layed />}>
+      <Route path="/" element={<Layed />}>
         <Route index element={<AllCourses />} />
         <Route path="/admin/students" element={<AllStudents />} />
         <Route path="/admin/students/one" element={<OneStudent />} />

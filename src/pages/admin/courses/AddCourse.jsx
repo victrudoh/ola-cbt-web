@@ -1,5 +1,10 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
+import AppContext from "../../../context/AppContext";
+import axios from "axios";
+import { success, error } from "../../../helpers/Alert";
+import Spinner from "../../../components/widgets/spinner/Spinner";
 
 const AddCourse = () => {
   const navigate = useNavigate();
@@ -8,10 +13,55 @@ const AddCourse = () => {
     navigate("/admin/courses");
   };
 
+  const { loading, setLoading } = useContext(AppContext);
+
+  const [courseDetails, setCourseDetails] = useState({
+    name: "",
+  });
+
+  const createCourse = async (e) => {
+    setLoading(true);
+    console.log("courseDetails", courseDetails);
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "https://cbt-api-a37x.onrender.com/api/courses/add",
+        courseDetails,
+        {
+          headers: { "content-type": "application/json" },
+        }
+      );
+      console.log("response", response);
+      setLoading(false);
+      if (response.status === 200) {
+        success("New course created.");
+        goBack();
+        // navigate("/");
+        // window.location.reload(false);
+      }
+    } catch (err) {
+      console.log(err);
+      error(err.response.data.error);
+      setLoading(false);
+    }
+  };
+
+  const onchangeHandler = async (e) => {
+    e.persist();
+    setCourseDetails((courseDetails) => ({
+      ...courseDetails,
+      [e.target.name]: e.target.value,
+    }));
+    console.log(
+      "🚀 ~ file: AddCourse.jsx:53 ~ setCourseDetails ~ courseDetails:",
+      courseDetails
+    );
+  };
+
   return (
     // <div className="w-[70%] mx-auto my-5 shadow-lg bg-white p-8 flex flex-col gap-4 rounded-lg">
     <form
-      action=""
+      onSubmit={createCourse}
       className="w-[70%] mx-auto my-5 shadow-lg bg-white p-8 flex flex-col gap-4 rounded-lg"
     >
       {/* top stuff */}
@@ -29,22 +79,30 @@ const AddCourse = () => {
         <span className="text-gray-400">
           Course Name <span className="text-red-400">*</span>
         </span>
-        <textarea
+        <input
           type="text"
           name="name"
           id="name"
           required
+          onChange={onchangeHandler}
           placeholder="Please add course name here . . ."
           className="bg-gray-300/40 p-2 w-full rounded-lg outline-2 outline-teal-500"
         />
       </div>
-
-      <button
-        className="bg-teal-600 rounded-lg p-2 px-4 my-4 mx-auto w-1/2 flex items-center justify-center outline-none text-white cursor-pointer hover:bg-teal-500"
-        onClick={goBack}
-      >
-        Add Course
-      </button>
+      {loading ? (
+        <>
+          <Spinner />
+        </>
+      ) : (
+        <>
+          <button
+            className="bg-teal-600 rounded-lg p-2 px-4 my-4 mx-auto w-1/2 flex items-center justify-center outline-none text-white cursor-pointer hover:bg-teal-500"
+            type="submit"
+          >
+            Add Course
+          </button>
+        </>
+      )}
     </form>
     // </div>
   );

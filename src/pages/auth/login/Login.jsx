@@ -1,24 +1,78 @@
-// import { useContext } from "react";
-// import AppContext from "../../../context/AppContext";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import logo from "../../../assets/images/logo.jpeg";
+import AppContext from "../../../context/AppContext";
+import axios from "axios";
+import { success, error } from "../../../helpers/Alert";
+import Spinner from "../../../components/widgets/spinner/Spinner";
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  const { loading, setLoading } = useContext(AppContext);
+
+  const [loginDetails, setLoginDetails] = useState({
+    email: "",
+    password: "",
+  });
+
+  const Loginhandler = async (e) => {
+    setLoading(true);
+    // console.log("LoginDetails", loginDetails);
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "https://cbt-api-a37x.onrender.com/api/auth/login",
+        loginDetails,
+        {
+          headers: { "content-type": "application/json" },
+        }
+      );
+      // console.log("response", response);
+      setLoading(false);
+      const token = response.data.data.loginDetails.token;
+      const userId = response.data.data.loginDetails.user._id;
+      if (response.status === 200) {
+        success("Login Successfull");
+        localStorage.setItem("token", token);
+        localStorage.setItem("userId", userId);
+        navigate("/");
+        window.location.reload(false);
+      }
+    } catch (err) {
+      console.log(err);
+      error(err.response.data.error);
+      setLoading(false);
+    }
+  };
+
+  const onchangeHandler = async (e) => {
+    e.persist();
+    setLoginDetails((loginDetails) => ({
+      ...loginDetails,
+      [e.target.name]: e.target.value,
+    }));
+    console.log(
+      "🚀 ~ file: AddCourse.jsx:53 ~ setLoginDetails ~ LoginDetails:",
+      loginDetails
+    );
+  };
+
   return (
     <div className="flex h-screen overflow-hidden bg-teal-100">
       {/* Logo in the top-left corner */}
       <div className="absolute top-3 left-5 p-4">
-        <span className="font-poppins text-2xl font-semibold leading-36 tracking-tight text-green-800">
+        {/* <span className="font-poppins text-2xl font-semibold leading-36 tracking-tight text-green-800">
           <span className="relative inline-block before:absolute before:content-[''] before:w-3 before:h-3 before:-top-1 before:-left-2 before:bg-teal-400 before:rounded-full"></span>
           <span className="relative inline-block after:absolute after:content-[''] after:w-3 after:h-3 after:-bottom-1 after:-right-2 after:bg-teal-400 after:rounded-full"></span>
           logo
-        </span>
+        </span> */}
 
-        <img
+        {/* <img
           src={logo} // Replace with your actual logo image source
           alt="Logo"
           className="w-16 h-16" // Adjust the width and height as needed
-        />
+        /> */}
       </div>
 
       {/* Content */}
@@ -67,42 +121,58 @@ const Login = () => {
               name="lastName"
             />
           </div> */}
-          {/* pair: email */}
-          <div className="flex flex-col items-start justify-center">
-            <span className="font-inter text-sm  leading-6 tracking-normal text-left text-gray-700">
-              Email
-            </span>
-            <input
-              className="w-full h-[40px] text-sm px-2 py-2 rounded-sm border border-gray-300 focus:outline-none focus:ring focus:border-teal-100 bg-gray-200/40"
-              type="email"
-              placeholder="johndoe@example.com"
-              name="email"
-            />
-          </div>
-          {/* pair: password */}
-          <div className="flex flex-col items-start justify-center">
-            <span className="font-inter text-sm  leading-6 tracking-normal text-left text-gray-700">
-              Password
-            </span>
-            <input
-              className="w-full h-[40px] text-sm px-2 py-2 rounded-sm border border-gray-300 focus:outline-none focus:ring focus:border-teal-100 bg-gray-200/40"
-              type="password"
-              placeholder="johndoe@example.com"
-              name="password"
-            />
-          </div>
-          {/* button */}
-          <div className="w-full flex items-center justify-center my-4">
-            {/* <button className="w-[70%] h-[45px] text-white px-21 py-19 rounded-md flex items-center justify-center gap-10 bg-gradient-to-r from-green-600 to-green-800 hover:bg-teal-700 hover:border-green-300 hover:border-2 shadow-lg">
-              Sign In
-            </button> */}
-            <a
+          <form onSubmit={Loginhandler}>
+            {/* pair: email */}
+            <div className="flex flex-col items-start justify-center">
+              <span className="font-inter text-sm  leading-6 tracking-normal text-left text-gray-700">
+                Email
+              </span>
+              <input
+                className="w-full h-[40px] text-sm px-2 py-2 rounded-sm border border-gray-300 focus:outline-none focus:ring focus:border-teal-100 bg-gray-200/40"
+                type="email"
+                placeholder="johndoe@example.com"
+                name="email"
+                onChange={onchangeHandler}
+              />
+            </div>
+            {/* pair: password */}
+            <div className="flex flex-col items-start justify-center">
+              <span className="font-inter text-sm  leading-6 tracking-normal text-left text-gray-700">
+                Password
+              </span>
+              <input
+                className="w-full h-[40px] text-sm px-2 py-2 rounded-sm border border-gray-300 focus:outline-none focus:ring focus:border-teal-100 bg-gray-200/40"
+                type="password"
+                placeholder="* * * * * *"
+                name="password"
+                onChange={onchangeHandler}
+              />
+            </div>
+            {/* button */}
+            <div className="w-full flex items-center justify-center my-4">
+              {loading ? (
+                <>
+                  <Spinner />
+                </>
+              ) : (
+                <>
+                  <button
+                    className="w-[70%] h-[45px] text-white px-21 py-19 rounded-md flex items-center justify-center gap-10 bg-gradient-to-r from-green-600 to-green-800 hover:bg-teal-700 hover:border-green-300 hover:border-2 shadow-lg"
+                    type="submit"
+                  >
+                    Sign In
+                  </button>
+                </>
+              )}
+
+              {/* <a
               href="/user/select-course"
               className="w-[70%] h-[45px] text-white px-21 py-19 rounded-md flex items-center justify-center gap-10 bg-gradient-to-r from-green-600 to-green-800 no-underline hover:bg-teal-700 hover:border-green-300 hover:border-2 shadow-lg hover:text-white"
             >
               Sign In
-            </a>
-          </div>
+            </a> */}
+            </div>
+          </form>
         </div>
       </div>
     </div>
