@@ -1,9 +1,12 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AppContext from "../../../context/AppContext";
+import axios from "axios";
+import { error, success } from "../../../helpers/Alert";
 
 const AllCourses = () => {
-  const { allCourses, getAllQuestions } = useContext(AppContext);
+  const { loading, setLoading, allCourses, getAllQuestions, getAllCourses } =
+    useContext(AppContext);
 
   const navigate = useNavigate();
 
@@ -14,6 +17,29 @@ const AllCourses = () => {
 
   const addCourse = async () => {
     navigate("/admin/courses/add");
+  };
+
+  const deleteHandler = async (id) => {
+    try {
+      setLoading(true);
+      const response = await axios.delete(
+        `https://cbt-api-a37x.onrender.com/api/courses/delete?id=${id}`,
+        {
+          headers: { "content-type": "application/json" },
+        }
+      );
+      console.log("response", response);
+      if (response.status === 200) {
+        success("Deleted Course successfully");
+        getAllCourses();
+        //  goBack();
+      }
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      error(err.response.data.error);
+      setLoading(false);
+    }
   };
 
   return (
@@ -38,17 +64,29 @@ const AllCourses = () => {
           {allCourses ? (
             <>
               {allCourses.map((item, i) => (
-                <div
-                  key={i}
-                  className="flex flex-col gap-6 justify-start items-between p-4 shadow-md rounded-md border-2 border-teal-600 w-1/5 cursor-pointer hover:shadow-xl"
-                  onClick={() => gotoCourse(item._id)}
-                >
-                  <span className="font-semibold">{item.name}</span>
-                  <div className="flex flex-col justify-start items-between font-light">
-                    <span className="text-sm">20 Questions added</span>
-                    <span className="text-sm">11 Students</span>
+                <>
+                  <div className="flex gap-2 items-start">
+                    <div
+                      key={i}
+                      className="flex flex-col gap-6 justify-start items-between p-4 shadow-md rounded-md border-2 border-teal-600 w-[200px] h-[130px] cursor-pointer hover:shadow-xl"
+                      onClick={() => gotoCourse(item._id)}
+                    >
+                      <span className="font-semibold">{item.name}</span>
+                      {/* <div className="flex w-full items-center justify-between"> */}
+                      <div className="flex flex-col justify-start items-between font-light">
+                        <span className="text-sm">20 Questions added</span>
+                        <span className="text-sm">11 Students</span>
+                      </div>
+                      {/* </div> */}
+                    </div>
+                    <span
+                      className="font-lg text-red-600 font-semibold hover:text-teal-500 cursor-pointer"
+                      onClick={() => deleteHandler(item._id)}
+                    >
+                      x
+                    </span>
                   </div>
-                </div>
+                </>
               ))}
             </>
           ) : (

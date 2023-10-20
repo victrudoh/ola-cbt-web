@@ -10,10 +10,11 @@ const AddCourse = () => {
   const navigate = useNavigate();
 
   const goBack = async () => {
-    navigate("/admin/courses");
+    await getAllCourses();
+    navigate("/admin/courses/");
   };
 
-  const { loading, setLoading } = useContext(AppContext);
+  const { loading, setLoading, getAllCourses } = useContext(AppContext);
 
   const [courseDetails, setCourseDetails] = useState({
     name: "",
@@ -41,6 +42,7 @@ const AddCourse = () => {
       }
     } catch (err) {
       console.log(err);
+      error(err.response.data.message);
       error(err.response.data.error);
       setLoading(false);
     }

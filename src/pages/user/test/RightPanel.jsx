@@ -1,7 +1,7 @@
 const RightPanel = () => {
   return (
     <>
-      <div className="bg-white w-[70%] min-h-[50%] rounded-[8px] bg-cover bg-center shadow-xl p-4 flex flex-col items-center justify-start z-[1]">
+      <div className="bg-white w-[70%] min-h-[50%] rounded-[8px] bg-cover bg-center shadow-xl p-4 flex flex-col items-center justify-start gap-4 z-[1]">
         {/* Top part */}
         <div className="flex items-center justify-between w-full">
           <div className="py-2 px-4 rounded-[13px] border-2 font-bold border-teal-700 text-teal-700 cursor-pointer hover:bg-teal-700 hover:text-white">
@@ -18,10 +18,9 @@ const RightPanel = () => {
           </a>
         </div>
         {/* Image holder */}
-        <div className="w-full min-h-[250px] flex items-center justify-center">
-          {/* image */}
+        {/* <div className="w-full min-h-[250px] flex items-center justify-center">
           <img src="#" alt="Sample Image" />
-        </div>
+        </div> */}
         {/* Question */}
         <div className="w-full bg-teal-100 p-3 rounded-md font-poppins text-sm font-normal leading-6 tracking-normal text-center text-gray-600">
           Lorem ipsum dolor sit amet consectetur. Cras enim est tortor pharetra

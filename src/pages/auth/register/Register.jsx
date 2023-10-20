@@ -1,26 +1,64 @@
-// import { useContext } from "react";
-// import AppContext from "../../../context/AppContext";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-import logo from "../../../assets/images/logo.jpeg";
+import AppContext from "../../../context/AppContext";
+import axios from "axios";
+import { success, error } from "../../../helpers/Alert";
+import Spinner from "../../../components/widgets/spinner/Spinner";
 
 const Register = () => {
+  const navigate = useNavigate();
+
+  const gotoLogin = async () => {
+    navigate("/login");
+  };
+
+  const { loading, setLoading } = useContext(AppContext);
+
+  const [registerDetails, setRegisterDetails] = useState({
+    firstname: "",
+    lastname: "",
+    matric_no: "",
+    password: "",
+  });
+
+  const Registerhandler = async (e) => {
+    setLoading(true);
+    // console.log("RegisterDetails", registerDetails);
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "https://cbt-api-a37x.onrender.com/api/auth/signup",
+        registerDetails,
+        {
+          headers: { "content-type": "application/json" },
+        }
+      );
+      // console.log("response", response);
+      setLoading(false);
+      if (response.status === 200) {
+        success("Registration Successfull");
+        navigate("/");
+        // window.location.reload(false);
+      }
+    } catch (err) {
+      console.log(err);
+      error(err.response.data.message);
+      error(err.response.data.error);
+      setLoading(false);
+    }
+  };
+
+  const onchangeHandler = async (e) => {
+    e.persist();
+    setRegisterDetails((registerDetails) => ({
+      ...registerDetails,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
   return (
     <div className="flex h-screen overflow-hidden bg-teal-100">
-      {/* Logo in the top-left corner */}
-      <div className="absolute top-3 left-5 p-4">
-        <span className="font-poppins text-2xl font-semibold leading-36 tracking-tight text-green-800">
-          <span className="relative inline-block before:absolute before:content-[''] before:w-3 before:h-3 before:-top-1 before:-left-2 before:bg-teal-400 before:rounded-full"></span>
-          <span className="relative inline-block after:absolute after:content-[''] after:w-3 after:h-3 after:-bottom-1 after:-right-2 after:bg-teal-400 after:rounded-full"></span>
-          logo
-        </span>
-
-        <img
-          src={logo} // Replace with your actual logo image source
-          alt="Logo"
-          className="w-16 h-16" // Adjust the width and height as needed
-        />
-      </div>
-
       {/* Content */}
       {/* Rotated rectangle */}
       <div
@@ -35,16 +73,19 @@ const Register = () => {
         {/* Title part */}
         <div className="flex flex-col items-center justify-center text-teal-800 w-[50%] border-b-[2.5px] p-2 border-teal-600">
           <h4 className="text-teal-800 font-poppins text-xl font-semibold leading-36 tracking-normal">
-            Sign In
+            Register
           </h4>
           <span className="font-poppins text-sm font-normal leading-5 tracking-normal text-center">
             Input your details to get started
           </span>
         </div>
         {/* form part */}
-        <div className="w-[80%] my-6 flex flex-col gap-[20px]">
+        <form
+          onSubmit={Registerhandler}
+          className="w-[80%] my-6 flex flex-col gap-[20px]"
+        >
           {/* pair: first name */}
-          {/* <div className="flex flex-col items-start justify-center">
+          <div className="flex flex-col items-start justify-center">
             <span className="font-inter text-sm  leading-6 tracking-normal text-left text-gray-700">
               First Name
             </span>
@@ -52,11 +93,12 @@ const Register = () => {
               className="w-full h-[40px] text-sm px-2 py-2 rounded-sm border border-gray-300 focus:outline-none focus:ring focus:border-teal-100 bg-gray-200/40"
               type="text"
               placeholder="John"
-              name="firstName"
+              name="firstname"
+              onChange={onchangeHandler}
             />
-          </div> */}
+          </div>
           {/* pair: last name */}
-          {/* <div className="flex flex-col items-start justify-center">
+          <div className="flex flex-col items-start justify-center">
             <span className="font-inter text-sm  leading-6 tracking-normal text-left text-gray-700">
               Last Name
             </span>
@@ -64,19 +106,21 @@ const Register = () => {
               className="w-full h-[40px] text-sm px-2 py-2 rounded-sm border border-gray-300 focus:outline-none focus:ring focus:border-teal-100 bg-gray-200/40"
               type="text"
               placeholder="Doe"
-              name="lastName"
+              name="lastname"
+              onChange={onchangeHandler}
             />
-          </div> */}
-          {/* pair: email */}
+          </div>
+          {/* pair: matric_no */}
           <div className="flex flex-col items-start justify-center">
             <span className="font-inter text-sm  leading-6 tracking-normal text-left text-gray-700">
-              Email
+              Matric Number
             </span>
             <input
               className="w-full h-[40px] text-sm px-2 py-2 rounded-sm border border-gray-300 focus:outline-none focus:ring focus:border-teal-100 bg-gray-200/40"
-              type="email"
-              placeholder="johndoe@example.com"
-              name="email"
+              type="text"
+              placeholder="OLA-001-NUR"
+              name="matric_no"
+              onChange={onchangeHandler}
             />
           </div>
           {/* pair: password */}
@@ -89,21 +133,35 @@ const Register = () => {
               type="password"
               placeholder="johndoe@example.com"
               name="password"
+              onChange={onchangeHandler}
             />
           </div>
           {/* button */}
           <div className="w-full flex items-center justify-center my-4">
-            {/* <button className="w-[70%] h-[45px] text-white px-21 py-19 rounded-md flex items-center justify-center gap-10 bg-gradient-to-r from-green-600 to-green-800 hover:bg-teal-700 hover:border-green-300 hover:border-2 shadow-lg">
-              Sign In
-            </button> */}
-            <a
-              href="/user/select-course"
-              className="w-[70%] h-[45px] text-white px-21 py-19 rounded-md flex items-center justify-center gap-10 bg-gradient-to-r from-green-600 to-green-800 no-underline hover:bg-teal-700 hover:border-green-300 hover:border-2 shadow-lg hover:text-white"
-            >
-              Sign In
-            </a>
+            {loading ? (
+              <>
+                <Spinner />
+              </>
+            ) : (
+              <>
+                <div className="w-full flex flex-col gap-3 items-center justify-center">
+                  <button
+                    className="w-[70%] h-[45px] text-white px-21 py-19 rounded-md flex items-center justify-center gap-10 bg-gradient-to-r from-green-600 to-green-800 hover:bg-teal-700 hover:border-green-300 hover:border-2 shadow-lg"
+                    type="submit"
+                  >
+                    Register
+                  </button>
+                  <span
+                    onClick={gotoLogin}
+                    className="mx-auto text-teal-700 text-sm cursor-pointer hover:text-teal-400"
+                  >
+                    Login
+                  </span>
+                </div>
+              </>
+            )}
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
@@ -125,7 +183,7 @@ export default Register;
 // //   Content,
 // //   Title,
 // //   Overlay,
-// //   Login,
+// //   Register,
 // //   LogoIsh,
 // // } from "./Register.Styles";
 
@@ -135,7 +193,7 @@ export default Register;
 // import { CircleSpinner } from "../../../components/widgets/circleSpinner/CircleSpinner.Styles";
 
 // // left image
-// import bg from "../../../assets/images/login/login-side-img.png";
+// import bg from "../../../assets/images/register/register-side-img.png";
 // import AppContext from "../../../context/AppContext";
 
 // const Register = () => {
@@ -197,7 +255,7 @@ export default Register;
 //       if (response.status === 200) {
 //         success("Registration successful");
 //         // getCaregivers();
-//         navigate("/login");
+//         navigate("/register");
 //       }
 //     } catch (err) {
 //       error("Couldn't create user");
@@ -277,10 +335,10 @@ export default Register;
 //               ) : (
 //                 <ButtonWidget text={"Create Account"} />
 //               )}
-//               <Login>
+//               <Register>
 //                 Already have an account?
-//                 <NavLink to="/login">Login</NavLink>
-//               </Login>
+//                 <NavLink to="/register">Register</NavLink>
+//               </Register>
 //             </Content>
 //           </form>
 //         </Right>

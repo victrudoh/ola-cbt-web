@@ -1,4 +1,9 @@
+import { useContext } from "react";
+import AppContext from "../../../context/AppContext";
+
 const Leftpanel = () => {
+  const { activeUser, test } = useContext(AppContext);
+  console.log("🚀 ~ file: Leftpanel.jsx:6 ~ Leftpanel ~ test:", test);
   return (
     <>
       <div className="bg-white w-[30%] min-h-[50%] rounded-[8px] bg-cover bg-center shadow-xl p-4 flex flex-col items-center justify-start z-[1] gap-3">
@@ -6,7 +11,7 @@ const Leftpanel = () => {
           Paper 1
         </div>
         <span className="w-[70%] h-[45px] text-white text-center px-21 py-19 rounded-md flex items-center justify-center gap-10 bg-gradient-to-r from-green-600 to-green-800 hover:bg-teal-700 ">
-          Etop Promise
+          {activeUser.firstname} {activeUser.lastname}
         </span>
         {/* pairs */}
         <div className="flex flex-col gap-1 w-[90%] align-start-justify-center my-3">

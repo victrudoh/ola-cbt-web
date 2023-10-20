@@ -28,6 +28,9 @@ export const AppProvider = ({ children }) => {
   const [allQuestions, setAllQuestions] = useState();
   const [oneQuestion, setOneQuestion] = useState();
 
+  // TEST
+  const [test, setTest] = useState();
+
   // **************** //
   //*** FUNCTIONS ***//
   // **************** //
@@ -181,6 +184,7 @@ export const AppProvider = ({ children }) => {
         setCourseId,
         setOneCourse,
         getOneCourse,
+        getAllCourses,
 
         // Questions
         oneQuestion,
@@ -189,6 +193,11 @@ export const AppProvider = ({ children }) => {
         setOneQuestion,
         getOneQuestion,
         getAllQuestions,
+
+        // Test
+        test,
+
+        setTest,
 
         /* ***********
          *********

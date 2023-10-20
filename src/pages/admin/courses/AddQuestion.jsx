@@ -13,7 +13,8 @@ const AddQuestion = () => {
     navigate("/admin/courses/one");
   };
 
-  const { loading, setLoading, courseId } = useContext(AppContext);
+  const { loading, setLoading, courseId, getAllQuestions } =
+    useContext(AppContext);
 
   const [questionDetails, setQuestionDetails] = useState({
     question: "",
@@ -39,6 +40,7 @@ const AddQuestion = () => {
       // console.log("response", response);
       if (response.status === 200) {
         success("Added new question");
+        getAllQuestions(courseId);
         goBack();
       }
       setLoading(false);

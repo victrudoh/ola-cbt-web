@@ -57,7 +57,7 @@ const Questions = () => {
       {/* cards */}
       <div className="w-full mx-auto mt-5 flex gap-8 py-4 px-2 flex-wrap ml-4">
         {/* card */}
-        {allQuestions ? (
+        {allQuestions.length > 0 ? (
           <>
             {allQuestions.map((item, i) => (
               <>

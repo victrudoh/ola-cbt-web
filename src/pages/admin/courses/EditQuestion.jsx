@@ -6,18 +6,18 @@ import { error, success } from "../../../helpers/Alert";
 import Spinner from "../../../components/widgets/spinner/Spinner";
 
 const EditQuestion = () => {
-  const navigate = useNavigate();
-
-  const goBack = async () => {
-    navigate("/admin");
-  };
-
   const { loading, setLoading, setCourseId, courseId, oneQuestion } =
     useContext(AppContext);
   console.log(
     "🚀 ~ file: EditQuestion.jsx:16 ~ EditQuestion ~ oneQuestion:",
     oneQuestion
   );
+
+  const navigate = useNavigate();
+
+  const goBack = async () => {
+    navigate(`/admin/courses/one?id=${courseId}`);
+  };
 
   const [questionDetails, setQuestionDetails] = useState({
     question: oneQuestion.question,
