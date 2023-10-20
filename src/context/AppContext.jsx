@@ -30,6 +30,9 @@ export const AppProvider = ({ children }) => {
 
   // TEST
   const [test, setTest] = useState();
+  const [testId, setTestId] = useState();
+  const [oneTest, setOneTest] = useState();
+  const [questionIndex, setQuestionIndex] = useState();
 
   // **************** //
   //*** FUNCTIONS ***//
@@ -144,6 +147,58 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  // TESTS
+  // Get one test
+  const getOneTest = async () => {
+    try {
+      const id = localStorage.getItem("testId");
+      const response = await axios.get(
+        `https://cbt-api-a37x.onrender.com/api/tests/one?id=${id}`,
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
+      // console.log(
+      //   "🚀 ~ file: AppContext.jsx:61 ~ getAllCourses ~ response:",
+      //   response
+      // );
+      setOneTest(response.data.data.test);
+    } catch (error) {
+      console.log("🚀 ~ file: AppContext.jsx:166 ~ getOneTest ~ error:", error);
+    }
+  };
+
+  // Answer question
+  const answerQuestion = async (testId, questionId, index, questionLength) => {
+    try {
+      const response = await axios.get(
+        `https://cbt-api-a37x.onrender.com/api/tests/answer?testId=${testId}&questionId=${questionId}&index=${index}`,
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
+      console.log(
+        "🚀 ~ file: AppContext.jsx:183 ~ answerQuestion ~ response:",
+        response
+      );
+
+      if (response.status === 200) {
+        // if
+        setQuestionIndex(questionIndex + 1);
+        await getOneTest(testId);
+      }
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: AppContext.jsx:189 ~ answerQuestion ~ error:",
+        error
+      );
+    }
+  };
+
   /* ***********
    *********
    ********
@@ -156,6 +211,9 @@ export const AppProvider = ({ children }) => {
 
     // Courses
     getAllCourses();
+
+    // Test
+    getOneTest();
   }, []);
 
   return (
@@ -196,8 +254,16 @@ export const AppProvider = ({ children }) => {
 
         // Test
         test,
+        testId,
+        oneTest,
+        questionIndex,
 
         setTest,
+        setTestId,
+        getOneTest,
+        setOneTest,
+        answerQuestion,
+        setQuestionIndex,
 
         /* ***********
          *********

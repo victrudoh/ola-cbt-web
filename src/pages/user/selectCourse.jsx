@@ -6,7 +6,7 @@ import { error, success } from "../../helpers/Alert";
 import Spinner from "../../components/widgets/spinner/Spinner";
 
 const SelectCourse = () => {
-  const { loading, setLoading, activeUser, allCourses, setTest } =
+  const { loading, setLoading, activeUser, allCourses, setOneTest } =
     useContext(AppContext);
 
   const navigate = useNavigate();
@@ -28,8 +28,9 @@ const SelectCourse = () => {
       setLoading(false);
       if (response.status === 200) {
         success("Your test hast began, God Speed!");
-        setTest(response.data.data.test);
-        navigate("/user/test");
+        setOneTest(response.data.data.test);
+        localStorage.setItem("testId", response.data.data.test._id);
+        navigate(`/user/test?id=${response.data.data.test._id}`);
         // window.location.reload(false);
       }
     } catch (err) {
