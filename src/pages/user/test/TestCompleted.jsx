@@ -1,4 +1,9 @@
+import { useContext } from "react";
+import AppContext from "../../../context/AppContext";
+
 const TestCompleted = () => {
+  const { oneTest } = useContext(AppContext);
+
   return (
     <>
       {/* content main */}
@@ -18,21 +23,23 @@ const TestCompleted = () => {
             {/* pairs */}
             <div className="flex flex-col gap-4 w-[90%] align-start-justify-center my-3">
               {/* pair */}
-              <div className="flex w-full justify-between align-center-gap-2">
+              {/* <div className="flex w-full justify-between align-center-gap-2">
                 <div className="font-poppins text-base font-normal leading-6 tracking-normal text-left text-gray-500">
                   Time used
                 </div>
                 <div className="font-poppins text-base font-semibold leading-6 tracking-normal text-right text-teal-700">
                   1:30:17
                 </div>
-              </div>
+              </div> */}
               {/* pair */}
               <div className="flex w-full justify-between align-center-gap-2">
                 <div className="font-poppins text-base font-normal leading-6 tracking-normal text-left text-gray-500">
                   Questions Completed
                 </div>
                 <div className="font-poppins text-base font-normal leading-6 tracking-normal text-right text-gray-500">
-                  <span className="font-semibold text-teal-700">11 of 18</span>
+                  <span className="font-semibold text-teal-700">
+                    {oneTest.attemptedQuestions} of {oneTest.totalQuestions}
+                  </span>
                 </div>
               </div>
             </div>

@@ -1,11 +1,40 @@
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import AppContext from "../../../context/AppContext";
+import axios from "axios";
+import { info } from "../../../helpers/Alert";
 
 const Leftpanel = () => {
   const { activeUser, oneTest, setQuestionIndex } = useContext(AppContext);
-  console.log("🚀 ~ file: Leftpanel.jsx:6 ~ Leftpanel ~ oneTest:", oneTest);
+
+  const navigate = useNavigate();
 
   let sn = 1;
+
+  const endTestHandler = async () => {
+    try {
+      const response = await axios.get(
+        `https://cbt-api-a37x.onrender.com/api/tests/end?testId=${oneTest._id}`,
+        {
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log(
+        "🚀 ~ file: Leftpanel.jsx:21 ~ endTestHandler ~ response:",
+        response
+      );
+      info("Your test just ended.");
+      navigate("/user/test-completed");
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: Leftpanel.jsx:23 ~ endTestHandler ~ error:",
+        error
+      );
+    }
+  };
 
   return (
     <>
@@ -77,6 +106,12 @@ const Leftpanel = () => {
             </div> */}
           </div>
         </div>
+        <span
+          onClick={() => endTestHandler()}
+          className="w-[70%] h-[45px] text-white text-center px-21 py-19 rounded-md flex items-center cursor-pointer justify-center gap-10 bg-red-600 hover:bg-red-800 "
+        >
+          Submit
+        </span>
       </div>
     </>
   );

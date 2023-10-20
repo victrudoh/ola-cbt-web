@@ -32,7 +32,7 @@ export const AppProvider = ({ children }) => {
   const [test, setTest] = useState();
   const [testId, setTestId] = useState();
   const [oneTest, setOneTest] = useState();
-  const [questionIndex, setQuestionIndex] = useState();
+  const [questionIndex, setQuestionIndex] = useState(0);
 
   // **************** //
   //*** FUNCTIONS ***//
@@ -171,24 +171,32 @@ export const AppProvider = ({ children }) => {
   };
 
   // Answer question
-  const answerQuestion = async (testId, questionId, index, questionLength) => {
+  const answerQuestion = async (
+    testId,
+    questionId,
+    index,
+    questionLength,
+    answer
+  ) => {
     try {
-      const response = await axios.get(
+      const response = await axios.post(
         `https://cbt-api-a37x.onrender.com/api/tests/answer?testId=${testId}&questionId=${questionId}&index=${index}`,
+        { answer },
         {
           headers: {
             "content-type": "application/json",
           },
         }
       );
-      console.log(
-        "🚀 ~ file: AppContext.jsx:183 ~ answerQuestion ~ response:",
-        response
-      );
+      // console.log(
+      //   "🚀 ~ file: AppContext.jsx:183 ~ answerQuestion ~ response:",
+      //   response
+      // );
 
       if (response.status === 200) {
-        // if
-        setQuestionIndex(questionIndex + 1);
+        if (questionLength > index + 1) {
+          setQuestionIndex(questionIndex + 1);
+        }
         await getOneTest(testId);
       }
     } catch (error) {
