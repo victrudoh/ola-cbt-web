@@ -1,10 +1,12 @@
 // logo
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/images/logo.jpeg";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import AppContext from "../../context/AppContext";
 
 const Sidebar = () => {
-  const [activeTab, setActiveTab] = useState("courses");
+  const { sidebarActive, setSidebarActive } = useContext(AppContext);
+
   return (
     <div className="flex flex-col w-[180px] bg-white h-screen shadow-md">
       {/* Logo in the top-left corner */}
@@ -23,12 +25,12 @@ const Sidebar = () => {
       {/* Menu Items */}
       <div className="my-5 w-full flex flex-col gap-4">
         <NavLink
-          onClick={() => setActiveTab("courses")}
+          onClick={() => setSidebarActive("courses")}
           activeClassName="active"
           exact
           to="/admin/courses"
           className={
-            activeTab === "courses"
+            sidebarActive === "courses"
               ? "w-full p-3 flex items-center justify-evenly text-white bg-teal-600 transition-all duration-300 ease-in-out rounded-tr rounded-br ml-3 no-underline hover:text-white"
               : "w-full p-3 flex items-center justify-evenly text-white bg-teal-500 transition-all duration-300 ease-in-out rounded-tr rounded-br hover:text-white hover:bg-teal-600 hover:ml-3"
           }
@@ -36,12 +38,12 @@ const Sidebar = () => {
           <h3>Courses</h3>
         </NavLink>
         <NavLink
-          onClick={() => setActiveTab("students")}
+          onClick={() => setSidebarActive("students")}
           activeClassName="active"
           exact
           to="/admin/students"
           className={
-            activeTab === "students"
+            sidebarActive === "students"
               ? "w-full p-3 flex items-center justify-evenly text-white bg-teal-600 transition-all duration-300 ease-in-out rounded-tr rounded-br ml-3 no-underline hover:text-white"
               : "w-full p-3 flex items-center justify-evenly text-white bg-teal-500 transition-all duration-300 ease-in-out rounded-tr rounded-br hover:text-white hover:bg-teal-600 hover:ml-3"
           }

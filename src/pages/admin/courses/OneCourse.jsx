@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Students from "./Students";
 import Questions from "./Questions";
+import AppContext from "../../../context/AppContext";
 
 const OneCourse = () => {
-  const [switchPanel, setSwitchPanel] = useState("questions");
+  const { switchCoursePanel, setSwitchCoursePanel } = useContext(AppContext);
   const navigate = useNavigate();
 
   const goBack = async () => {
@@ -25,7 +26,7 @@ const OneCourse = () => {
           >
             Back
           </span>{" "}
-          {switchPanel === "questions" && (
+          {switchCoursePanel === "questions" && (
             <span
               className="bg-teal-600 rounded-lg p-2 px-4 flex items-center justify-center outline-none text-white cursor-pointer hover:bg-teal-500 mr-14"
               onClick={gotoAddQuestion}
@@ -38,31 +39,31 @@ const OneCourse = () => {
           <div className="flex flex-col justify-center items-center w-[20%] shadow-lg bg-white p-4 gap-6 rounded-lg h-[10rem]">
             <span
               className={
-                switchPanel === "questions"
+                switchCoursePanel === "questions"
                   ? "bg-teal-600 rounded-2xl p-2 px-4 font-bold cursor-pointer text-white"
                   : "bg-teal-300/30 rounded-2xl p-2 px-4 text-teal-600 font-bold cursor-pointer hover:bg-teal-600 hover:text-white"
               }
-              onClick={() => setSwitchPanel("questions")}
+              onClick={() => setSwitchCoursePanel("questions")}
             >
               Questions
             </span>
             <span
               className={
-                switchPanel === "students"
+                switchCoursePanel === "students"
                   ? "bg-teal-600 rounded-2xl p-2 px-4 font-bold cursor-pointer text-white"
                   : "bg-teal-300/30 rounded-2xl p-2 px-4 text-teal-600 font-bold cursor-pointer hover:bg-teal-600 hover:text-white"
               }
-              onClick={() => setSwitchPanel("students")}
+              onClick={() => setSwitchCoursePanel("students")}
             >
               Students
             </span>
           </div>
-          {switchPanel === "students" && (
+          {switchCoursePanel === "students" && (
             <>
               <Students />
             </>
           )}
-          {switchPanel === "questions" && (
+          {switchCoursePanel === "questions" && (
             <>
               <Questions />
             </>

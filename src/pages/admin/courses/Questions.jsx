@@ -24,7 +24,6 @@ const Questions = () => {
   };
 
   const deleteHandler = async (id) => {
-    console.log("🚀 ~ file: Questions.jsx:21 ~ deleteHandler ~ id:", id);
     try {
       const response = await axios.delete(
         `https://cbt-api-a37x.onrender.com/api/questions/delete?id=${id}`,
@@ -32,7 +31,7 @@ const Questions = () => {
           headers: { "content-type": "application/json" },
         }
       );
-      console.log("response", response);
+      // console.log("response", response);
       if (response.status === 200) {
         success("Deleted question successfully");
         getAllQuestions(courseId);
@@ -41,6 +40,7 @@ const Questions = () => {
     } catch (err) {
       console.log(err);
       error(err.response.data.error);
+      error(err.response.data.message);
     }
   };
 
@@ -57,7 +57,7 @@ const Questions = () => {
       {/* cards */}
       <div className="w-full mx-auto mt-5 flex gap-8 py-4 px-2 flex-wrap ml-4">
         {/* card */}
-        {allQuestions.length > 0 ? (
+        {allQuestions?.length > 0 ? (
           <>
             {allQuestions.map((item, i) => (
               <>

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import { error } from "../helpers/Alert";
 // import axios from "axios";
 
 const AppContext = createContext();
@@ -15,6 +16,7 @@ export const AppProvider = ({ children }) => {
 
   // Topbar Title
   const [topbarTitle, setTopbarTitle] = useState("Dashboard");
+  const [sidebarActive, setSidebarActive] = useState("");
   const [loading, setLoading] = useState(false);
   const [activeUser, setActiveUser] = useState({});
   const [token, setToken] = useState();
@@ -23,6 +25,7 @@ export const AppProvider = ({ children }) => {
   const [allCourses, setAllCourses] = useState();
   const [oneCourse, setOneCourse] = useState();
   const [courseId, setCourseId] = useState();
+  const [switchCoursePanel, setSwitchCoursePanel] = useState("questions");
 
   // QUESTIONS
   const [allQuestions, setAllQuestions] = useState();
@@ -33,6 +36,16 @@ export const AppProvider = ({ children }) => {
   const [testId, setTestId] = useState();
   const [oneTest, setOneTest] = useState();
   const [questionIndex, setQuestionIndex] = useState(0);
+
+  // Results
+  const [resultsByCourse, setResultsByCourse] = useState();
+  const [resultsByStudent, setResultsByStudent] = useState();
+  const [userId, setUserId] = useState();
+
+  // Students
+  const [allStudents, setAllStudents] = useState();
+  const [oneStudent, setOneStudent] = useState();
+  const [switchStudentPanel, setSwitchStudentPanel] = useState("details");
 
   // **************** //
   //*** FUNCTIONS ***//
@@ -53,6 +66,8 @@ export const AppProvider = ({ children }) => {
       );
       setActiveUser(response.data.data.user);
     } catch (error) {
+      error(error.response.data.message);
+      error(error.response.data.error);
       console.log("~ activeUser ~ error", error);
     }
   };
@@ -75,6 +90,8 @@ export const AppProvider = ({ children }) => {
       // );
       setAllCourses(response.data.data.allCourses);
     } catch (error) {
+      error(error.response.data.message);
+      error(error.response.data.error);
       console.log(
         "🚀 ~ file: AppContext.jsx:72 ~ getAllCourses ~ error:",
         error
@@ -99,6 +116,8 @@ export const AppProvider = ({ children }) => {
       // );
       setOneCourse(response.data.data.course);
     } catch (error) {
+      error(error.response.data.message);
+      error(error.response.data.error);
       console.log(
         "🚀 ~ file: AppContext.jsx:96 ~ getOneCourse ~ error:",
         error
@@ -120,6 +139,8 @@ export const AppProvider = ({ children }) => {
       );
       setAllQuestions(response.data.data.allQuestions);
     } catch (error) {
+      error(error.response.data.message);
+      error(error.response.data.error);
       console.log(
         "🚀 ~ file: AppContext.jsx:115 ~ getAllQuestions ~ error:",
         error
@@ -140,6 +161,8 @@ export const AppProvider = ({ children }) => {
       );
       setOneQuestion(response.data.data.question);
     } catch (error) {
+      error(error.response.data.message);
+      error(error.response.data.error);
       console.log(
         "🚀 ~ file: AppContext.jsx:132 ~ getOneQuestion ~ error:",
         error
@@ -165,8 +188,12 @@ export const AppProvider = ({ children }) => {
       //   response
       // );
       setOneTest(response.data.data.test);
-    } catch (error) {
-      console.log("🚀 ~ file: AppContext.jsx:166 ~ getOneTest ~ error:", error);
+    } catch (err) {
+      if (activeUser.role === "user") {
+        error(err.response.data.message);
+        error(err.response.data.error);
+      }
+      console.log("🚀 ~ file: AppContext.jsx:166 ~ getOneTest ~ error:", err);
     }
   };
 
@@ -199,11 +226,115 @@ export const AppProvider = ({ children }) => {
         }
         await getOneTest(testId);
       }
-    } catch (error) {
+    } catch (err) {
+      error(err.response.data.message);
+      error(err.response.data.error);
       console.log(
         "🚀 ~ file: AppContext.jsx:189 ~ answerQuestion ~ error:",
+        err
+      );
+    }
+  };
+
+  // RESULTS
+  // Results by course
+  const getResultsByCourse = async (id) => {
+    try {
+      const response = await axios.get(
+        `https://cbt-api-a37x.onrender.com/api/tests/by-course?courseId=${id}`,
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
+      setResultsByCourse(response.data.data.allTests);
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: AppContext.jsx:245 ~ getResultsByCourse ~ error:",
         error
       );
+      error(error.response.data.message);
+      error(error.response.data.error);
+    }
+  };
+
+  // Results by user
+  const getResultsByStudent = async (id) => {
+    try {
+      const response = await axios.get(
+        `https://cbt-api-a37x.onrender.com/api/users/tests?id=${id}`,
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
+      console.log(
+        "🚀 ~ file: AppContext.jsx:273 ~ getResultsByStudent ~ response:",
+        response
+      );
+      setResultsByStudent(response.data.data.test);
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: AppContext.jsx:267 ~ getResultsByStudent ~ error:",
+        error
+      );
+      error(error.response.data.message);
+      error(error.response.data.error);
+    }
+  };
+
+  // STUDENTS
+  // Get students
+  const getAllStudents = async () => {
+    try {
+      const response = await axios.get(
+        `https://cbt-api-a37x.onrender.com/api/users/students`,
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
+      // console.log(
+      //   "🚀 ~ file: AppContext.jsx:61 ~ getAllCourses ~ response:",
+      //   response
+      // );
+      setAllStudents(response.data.data.allStudents);
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: AppContext.jsx:298 ~ getAllStudents ~ error:",
+        error
+      );
+      error(error.response.data.message);
+      error(error.response.data.error);
+    }
+  };
+
+  // Get one student
+  const getOneStudent = async (id) => {
+    try {
+      const response = await axios.get(
+        `https://cbt-api-a37x.onrender.com/api/users/one?id=${id}`,
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
+      // console.log(
+      //   "🚀 ~ file: AppContext.jsx:61 ~ getAllCourses ~ response:",
+      //   response
+      // );
+      setOneStudent(response.data.data.user);
+    } catch (error) {
+      console.log(
+        "🚀 ~ file: AppContext.jsx:325 ~ getOneStudent ~ error:",
+        error
+      );
+      error(error.response.data.message);
+      error(error.response.data.error);
     }
   };
 
@@ -222,6 +353,9 @@ export const AppProvider = ({ children }) => {
 
     // Test
     getOneTest();
+
+    // Students
+    getAllStudents();
   }, []);
 
   return (
@@ -237,20 +371,24 @@ export const AppProvider = ({ children }) => {
         loading,
         activeUser,
         topbarTitle,
+        sidebarActive,
 
         setLoading,
         setActiveUser,
         setTopbarTitle,
+        setSidebarActive,
 
         // Courses
         courseId,
         oneCourse,
         allCourses,
+        switchCoursePanel,
 
         setCourseId,
         setOneCourse,
         getOneCourse,
         getAllCourses,
+        setSwitchCoursePanel,
 
         // Questions
         oneQuestion,
@@ -272,6 +410,27 @@ export const AppProvider = ({ children }) => {
         setOneTest,
         answerQuestion,
         setQuestionIndex,
+
+        // Results
+        userId,
+        resultsByCourse,
+        resultsByStudent,
+
+        setUserId,
+        getResultsByCourse,
+        setResultsByCourse,
+        getResultsByStudent,
+        setResultsByStudent,
+
+        // Students
+        oneStudent,
+        allStudents,
+        switchStudentPanel,
+
+        getOneStudent,
+        setAllStudents,
+        getAllStudents,
+        setSwitchStudentPanel,
 
         /* ***********
          *********

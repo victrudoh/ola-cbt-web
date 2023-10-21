@@ -2,10 +2,13 @@ import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import AppContext from "../../../context/AppContext";
 import axios from "axios";
-import { info } from "../../../helpers/Alert";
+import { error, info } from "../../../helpers/Alert";
+
+import Spinner from "../../../components/widgets/spinner/Spinner";
 
 const Leftpanel = () => {
-  const { activeUser, oneTest, setQuestionIndex } = useContext(AppContext);
+  const { loading, setLoading, activeUser, oneTest, setQuestionIndex } =
+    useContext(AppContext);
 
   const navigate = useNavigate();
 
@@ -13,6 +16,7 @@ const Leftpanel = () => {
 
   const endTestHandler = async () => {
     try {
+      setLoading(true);
       const response = await axios.get(
         `https://cbt-api-a37x.onrender.com/api/tests/end?testId=${oneTest._id}`,
         {
@@ -27,8 +31,12 @@ const Leftpanel = () => {
         response
       );
       info("Your test just ended.");
+      setLoading(false);
       navigate("/user/test-completed");
-    } catch (error) {
+    } catch (err) {
+      setLoading(false);
+      error(err.response.data.error);
+      error(err.response.data.message);
       console.log(
         "🚀 ~ file: Leftpanel.jsx:23 ~ endTestHandler ~ error:",
         error
@@ -106,6 +114,16 @@ const Leftpanel = () => {
             </div> */}
           </div>
         </div>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <span
+            onClick={() => endTestHandler()}
+            className="w-[70%] h-[45px] text-white text-center px-21 py-19 rounded-md flex items-center cursor-pointer justify-center gap-10 bg-red-600 hover:bg-red-800 "
+          >
+            Submit
+          </span>
+        )}
         <span
           onClick={() => endTestHandler()}
           className="w-[70%] h-[45px] text-white text-center px-21 py-19 rounded-md flex items-center cursor-pointer justify-center gap-10 bg-red-600 hover:bg-red-800 "
