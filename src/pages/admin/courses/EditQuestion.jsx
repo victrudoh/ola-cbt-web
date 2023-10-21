@@ -8,10 +8,10 @@ import Spinner from "../../../components/widgets/spinner/Spinner";
 const EditQuestion = () => {
   const { loading, setLoading, setCourseId, courseId, oneQuestion } =
     useContext(AppContext);
-  console.log(
-    "🚀 ~ file: EditQuestion.jsx:16 ~ EditQuestion ~ oneQuestion:",
-    oneQuestion
-  );
+  // console.log(
+  //   "🚀 ~ file: EditQuestion.jsx:16 ~ EditQuestion ~ oneQuestion:",
+  //   oneQuestion
+  // );
 
   const navigate = useNavigate();
 

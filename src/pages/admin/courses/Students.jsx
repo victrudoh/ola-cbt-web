@@ -7,6 +7,10 @@ import { error, success } from "../../../helpers/Alert";
 const Students = () => {
   const { courseId, setCourseId, resultsByCourse, getResultsByCourse } =
     useContext(AppContext);
+  // console.log(
+  //   "🚀 ~ file: Students.jsx:9 ~ Students ~ resultsByCourse:",
+  //   resultsByCourse.length
+  // );
 
   let sn = 1;
 
@@ -18,7 +22,7 @@ const Students = () => {
           headers: { "content-type": "application/json" },
         }
       );
-      console.log("response", response);
+      // console.log("response", response);
       if (response.status === 200) {
         success("Deleted test successfully");
         getResultsByCourse(courseId);
@@ -64,39 +68,25 @@ const Students = () => {
           <tbody>
             {resultsByCourse ? (
               <>
-                {resultsByCourse < 1 ? (
+                {resultsByCourse.map((item, i) => (
                   <>
-                    {resultsByCourse.map((item, i) => (
-                      <>
-                        <tr key={i} className=" h-12 bg-teal-400/20">
-                          <td>{sn++}</td>
-                          <td>{item.studentName}</td>
-                          <td>{item.studentMatricNumber}</td>
-                          <td>
-                            {item.correctAnswers} 0f {item.totalQuestions}
-                          </td>
-                          <td
-                            className="font-lg text-red-600 font-semibold hover:text-teal-500 cursor-pointer"
-                            onClick={() => deleteHandler(item._id)}
-                          >
-                            x
-                          </td>
-                        </tr>
-                        <div className="my-2"></div>
-                      </>
-                    ))}
-                  </>
-                ) : (
-                  <>
-                    <tr className="h-12 bg-teal-400/20">
-                      <td></td>
-                      <td></td>
-                      <td>No results yet</td>
-                      <td></td>
-                      <td></td>
+                    <tr key={i} className=" h-12 bg-teal-400/20">
+                      <td>{sn++}</td>
+                      <td>{item.studentName}</td>
+                      <td>{item.studentMatricNumber}</td>
+                      <td>
+                        {item.correctAnswers} 0f {item.totalQuestions}
+                      </td>
+                      <td
+                        className="font-lg text-red-600 font-semibold hover:text-teal-500 cursor-pointer"
+                        onClick={() => deleteHandler(item._id)}
+                      >
+                        x
+                      </td>
                     </tr>
+                    <div className="my-2"></div>
                   </>
-                )}
+                ))}
               </>
             ) : (
               <>

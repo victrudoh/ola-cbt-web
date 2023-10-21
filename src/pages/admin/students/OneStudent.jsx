@@ -16,7 +16,7 @@ const OneStudent = () => {
     getResultsByStudent,
     setSwitchStudentPanel,
   } = useContext(AppContext);
-  console.log("🚀 ~ file: OneStudent.jsx:18 ~ OneStudent ~ userId:", userId);
+  // console.log("🚀 ~ file: OneStudent.jsx:18 ~ OneStudent ~ userId:", userId);
 
   const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ const OneStudent = () => {
           headers: { "content-type": "application/json" },
         }
       );
-      console.log("response", response);
+      // console.log("response", response);
       if (response.status === 200) {
         success("Deleted student successfully");
         getAllStudents();

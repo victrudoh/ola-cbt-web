@@ -26,10 +26,10 @@ const Leftpanel = () => {
           },
         }
       );
-      console.log(
-        "🚀 ~ file: Leftpanel.jsx:21 ~ endTestHandler ~ response:",
-        response
-      );
+      // console.log(
+      //   "🚀 ~ file: Leftpanel.jsx:21 ~ endTestHandler ~ response:",
+      //   response
+      // );
       info("Your test just ended.");
       setLoading(false);
       navigate("/user/test-completed");
@@ -87,7 +87,7 @@ const Leftpanel = () => {
           </div>
         </div>
         {/* Questions */}
-        <div className="flex flex-col gap-2 align-start justify-start my-3 w-[90%]">
+        <div className="flex flex-col gap-2 align-start justify-start my-3 w-[90%] bg-gray-300/10 h-[28rem] overflow-y-scroll">
           <div className="font-poppins text-base font-semibold leading-6 tracking-normal text-left text-teal-700 ml-4">
             Questions
           </div>
@@ -124,12 +124,6 @@ const Leftpanel = () => {
             Submit
           </span>
         )}
-        <span
-          onClick={() => endTestHandler()}
-          className="w-[70%] h-[45px] text-white text-center px-21 py-19 rounded-md flex items-center cursor-pointer justify-center gap-10 bg-red-600 hover:bg-red-800 "
-        >
-          Submit
-        </span>
       </div>
     </>
   );

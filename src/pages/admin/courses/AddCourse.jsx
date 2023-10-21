@@ -32,7 +32,7 @@ const AddCourse = () => {
           headers: { "content-type": "application/json" },
         }
       );
-      console.log("response", response);
+      // console.log("response", response);
       setLoading(false);
       if (response.status === 200) {
         success("New course created.");
@@ -54,10 +54,10 @@ const AddCourse = () => {
       ...courseDetails,
       [e.target.name]: e.target.value,
     }));
-    console.log(
-      "🚀 ~ file: AddCourse.jsx:53 ~ setCourseDetails ~ courseDetails:",
-      courseDetails
-    );
+    // console.log(
+    //   "🚀 ~ file: AddCourse.jsx:53 ~ setCourseDetails ~ courseDetails:",
+    //   courseDetails
+    // );
   };
 
   return (

@@ -38,7 +38,7 @@ const AllCourses = () => {
           headers: { "content-type": "application/json" },
         }
       );
-      console.log("response", response);
+      // console.log("response", response);
       if (response.status === 200) {
         success("Deleted Course successfully");
         getAllCourses();

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 
-import DP from "../../../assets/images/studentDP.png";
+// import DP from "../../../assets/images/studentDP.png";
 import AppContext from "../../../context/AppContext";
 
 const StudentDetails = () => {
@@ -10,7 +10,7 @@ const StudentDetails = () => {
     <div className="w-[70%] shadow-lg bg-white p-8 flex flex-col gap-4 rounded-lg">
       {/* name & image */}
       <div className="flex w-full gap-4 items-center justify-start">
-        <img src={DP} alt="#" className="w-[50px]" />
+        {/* <img src={DP} alt="#" className="w-[50px]" /> */}
         <span className="text-xl font-sans font-semibold">
           {oneStudent?.firstname} {oneStudent?.lastname}
         </span>

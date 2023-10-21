@@ -4,10 +4,10 @@ import AppContext from "../../../context/AppContext";
 
 const StudentResult = () => {
   const { resultsByStudent } = useContext(AppContext);
-  console.log(
-    "🚀 ~ file: StudentResult.jsx:7 ~ StudentResult ~ resultsByStudent:",
-    resultsByStudent
-  );
+  // console.log(
+  //   "🚀 ~ file: StudentResult.jsx:7 ~ StudentResult ~ resultsByStudent:",
+  //   resultsByStudent
+  // );
 
   let sn = 1;
 
