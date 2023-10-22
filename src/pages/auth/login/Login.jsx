@@ -13,11 +13,12 @@ const Login = () => {
     navigate("/register");
   };
 
-  const { loading, setLoading } = useContext(AppContext);
+  const { loading, setLoading, switchAuthLayout, setSwitchAuthLayout } =
+    useContext(AppContext);
 
   const [loginDetails, setLoginDetails] = useState({});
 
-  const [switchLayout, setSwitchLayout] = useState("user");
+  // const [switchAuthLayout, setSwitchAuthLayout] = useState("user");
 
   const Loginhandler = async (e) => {
     setLoading(true);
@@ -82,9 +83,9 @@ const Login = () => {
           </h4>
           <div className="w-full flex gap-4 items-center justify-between">
             <span
-              onClick={() => setSwitchLayout("user")}
+              onClick={() => setSwitchAuthLayout("user")}
               className={
-                switchLayout === "user"
+                switchAuthLayout === "user"
                   ? "font-poppins text-sm font-normal leading-5 tracking-normal text-center pb-1 border-b-[2.5px] border-teal-600 cursor-pointer"
                   : "font-poppins text-sm font-normal leading-5 tracking-normal text-center pb-1 border-b-[2.5px] cursor-pointer"
               }
@@ -92,9 +93,9 @@ const Login = () => {
               Student Login
             </span>
             <span
-              onClick={() => setSwitchLayout("admin")}
+              onClick={() => setSwitchAuthLayout("admin")}
               className={
-                switchLayout === "admin"
+                switchAuthLayout === "admin"
                   ? "font-poppins text-sm font-normal leading-5 tracking-normal text-center pb-1 border-b-[2.5px] border-teal-600 cursor-pointer"
                   : "font-poppins text-sm font-normal leading-5 tracking-normal text-center pb-1 border-b-[2.5px] cursor-pointer"
               }
@@ -108,7 +109,7 @@ const Login = () => {
           onSubmit={Loginhandler}
           className="w-[80%] my-6 flex flex-col gap-[20px]"
         >
-          {switchLayout === "admin" ? (
+          {switchAuthLayout === "admin" ? (
             <>
               {/* pair: email */}
               <div className="flex flex-col items-start justify-center">

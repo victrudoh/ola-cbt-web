@@ -11,15 +11,16 @@ export const AppProvider = ({ children }) => {
         ********
         *********
         ***********
-        MISC
+        STATES
       */
 
-  // Topbar Title
+  // MISC
   const [topbarTitle, setTopbarTitle] = useState("Dashboard");
   const [sidebarActive, setSidebarActive] = useState("");
   const [loading, setLoading] = useState(false);
   const [activeUser, setActiveUser] = useState({});
   const [token, setToken] = useState();
+  const [switchAuthLayout, setSwitchAuthLayout] = useState("user");
 
   // COURSES
   const [allCourses, setAllCourses] = useState();
@@ -372,11 +373,13 @@ export const AppProvider = ({ children }) => {
         activeUser,
         topbarTitle,
         sidebarActive,
+        switchAuthLayout,
 
         setLoading,
         setActiveUser,
         setTopbarTitle,
         setSidebarActive,
+        setSwitchAuthLayout,
 
         // Courses
         courseId,
