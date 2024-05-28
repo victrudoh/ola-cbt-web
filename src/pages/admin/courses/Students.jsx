@@ -14,10 +14,12 @@ const Students = () => {
 
   let sn = 1;
 
+  const base_url = process.env.REACT_APP_BASE_URL;
+
   const deleteHandler = async (id) => {
     try {
       const response = await axios.delete(
-        `https://cbt-api-a37x.onrender.com/api/tests/delete?id=${id}`,
+        `${base_url}/tests/delete?id=${id}`,
         {
           headers: { "content-type": "application/json" },
         }

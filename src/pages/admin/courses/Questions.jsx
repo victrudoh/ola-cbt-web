@@ -8,6 +8,8 @@ import { error, success } from "../../../helpers/Alert";
 const Questions = () => {
   const navigate = useNavigate();
 
+  const base_url = process.env.REACT_APP_BASE_URL;
+
   const {
     courseId,
     setCourseId,
@@ -26,7 +28,7 @@ const Questions = () => {
   const deleteHandler = async (id) => {
     try {
       const response = await axios.delete(
-        `https://cbt-api-a37x.onrender.com/api/questions/delete?id=${id}`,
+        `${base_url}/questions/delete?id=${id}`,
         {
           headers: { "content-type": "application/json" },
         }

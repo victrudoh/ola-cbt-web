@@ -15,6 +15,8 @@ const AllCourses = () => {
     getResultsByCourse,
   } = useContext(AppContext);
 
+  const base_url = process.env.REACT_APP_BASE_URL;
+
   const navigate = useNavigate();
 
   const gotoCourse = async (id) => {
@@ -33,7 +35,7 @@ const AllCourses = () => {
     try {
       setLoading(true);
       const response = await axios.delete(
-        `https://cbt-api-a37x.onrender.com/api/courses/delete?id=${id}`,
+        `${base_url}/courses/delete?id=${id}`,
         {
           headers: { "content-type": "application/json" },
         }

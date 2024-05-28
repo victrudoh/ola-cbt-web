@@ -24,10 +24,12 @@ const OneStudent = () => {
     navigate("/admin/students");
   };
 
+  const base_url = process.env.REACT_APP_BASE_URL;
+
   const deleteHandler = async () => {
     try {
       const response = await axios.delete(
-        `https://cbt-api-a37x.onrender.com/api/users/delete?id=${userId}`,
+        `${base_url}/users/delete?id=${userId}`,
         {
           headers: { "content-type": "application/json" },
         }

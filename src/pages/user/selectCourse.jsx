@@ -13,12 +13,14 @@ const SelectCourse = () => {
 
   const [courseId, setCourseId] = useState();
 
+  const base_url = process.env.REACT_APP_BASE_URL;
+
   const startTest = async (e) => {
     setLoading(true);
     e.preventDefault();
     try {
       const response = await axios.post(
-        `https://cbt-api-a37x.onrender.com/api/tests/add?courseId=${courseId}&userId=${activeUser._id}`,
+        `${base_url}/tests/add?courseId=${courseId}&userId=${activeUser._id}`,
         {},
         {
           headers: { "content-type": "application/json" },

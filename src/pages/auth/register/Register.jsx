@@ -22,13 +22,15 @@ const Register = () => {
     password: "",
   });
 
+  const base_url = process.env.REACT_APP_BASE_URL;
+
   const Registerhandler = async (e) => {
     setLoading(true);
     // console.log("RegisterDetails", registerDetails);
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://cbt-api-a37x.onrender.com/api/auth/signup",
+        `${base_url}/auth/signup`,
         registerDetails,
         {
           headers: { "content-type": "application/json" },

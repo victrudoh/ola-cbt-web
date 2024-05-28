@@ -9,6 +9,8 @@ import Spinner from "../../../components/widgets/spinner/Spinner";
 const AddCourse = () => {
   const navigate = useNavigate();
 
+  const base_url = process.env.REACT_APP_BASE_URL;
+
   const goBack = async () => {
     await getAllCourses();
     navigate("/admin/courses/");
@@ -26,7 +28,7 @@ const AddCourse = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://cbt-api-a37x.onrender.com/api/courses/add",
+        `${base_url}/courses/add`,
         courseDetails,
         {
           headers: { "content-type": "application/json" },

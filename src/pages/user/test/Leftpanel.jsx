@@ -14,11 +14,13 @@ const Leftpanel = () => {
 
   let sn = 1;
 
+  const base_url = process.env.REACT_APP_BASE_URL;
+
   const endTestHandler = async () => {
     try {
       setLoading(true);
       const response = await axios.get(
-        `https://cbt-api-a37x.onrender.com/api/tests/end?testId=${oneTest._id}`,
+        `${base_url}/tests/end?testId=${oneTest._id}`,
         {
           headers: {
             "content-type": "application/json",

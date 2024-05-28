@@ -7,6 +7,9 @@ const AppContext = createContext();
 
 // eslint-disable-next-line react/prop-types
 export const AppProvider = ({ children }) => {
+
+  const base_url = process.env.REACT_APP_BASE_URL
+
   /*
         ********
         *********
@@ -21,6 +24,9 @@ export const AppProvider = ({ children }) => {
   const [activeUser, setActiveUser] = useState({});
   const [token, setToken] = useState();
   const [switchAuthLayout, setSwitchAuthLayout] = useState("user");
+  
+  
+  console.log("🚀 ~ AppProvider ~ env:", process.env.REACT_APP_BASE_URL);
 
   // COURSES
   const [allCourses, setAllCourses] = useState();
@@ -57,7 +63,7 @@ export const AppProvider = ({ children }) => {
     try {
       const userId = localStorage.getItem("userId");
       const response = await axios.get(
-        `https://cbt-api-a37x.onrender.com/api/users/one?id=${userId}`,
+        `${base_url}/users/one?id=${userId}`,
         {
           headers: {
             "content-type": "application/json",
@@ -78,7 +84,7 @@ export const AppProvider = ({ children }) => {
   const getAllCourses = async () => {
     try {
       const response = await axios.get(
-        `https://cbt-api-a37x.onrender.com/api/courses`,
+        `${base_url}/courses`,
         {
           headers: {
             "content-type": "application/json",
@@ -104,7 +110,7 @@ export const AppProvider = ({ children }) => {
   const getOneCourse = async (id) => {
     try {
       const response = await axios.get(
-        `https://cbt-api-a37x.onrender.com/api/courses/one?id=${id}`,
+        `${base_url}/courses/one?id=${id}`,
         {
           headers: {
             "content-type": "application/json",
@@ -131,7 +137,7 @@ export const AppProvider = ({ children }) => {
   const getAllQuestions = async (id) => {
     try {
       const response = await axios.get(
-        `https://cbt-api-a37x.onrender.com/api/questions/all?courseId=${id}`,
+        `${base_url}/questions/all?courseId=${id}`,
         {
           headers: {
             "content-type": "application/json",
@@ -153,7 +159,7 @@ export const AppProvider = ({ children }) => {
   const getOneQuestion = async (id) => {
     try {
       const response = await axios.get(
-        `https://cbt-api-a37x.onrender.com/api/questions/one?id=${id}`,
+        `${base_url}/questions/one?id=${id}`,
         {
           headers: {
             "content-type": "application/json",
@@ -177,7 +183,7 @@ export const AppProvider = ({ children }) => {
     try {
       const id = localStorage.getItem("testId");
       const response = await axios.get(
-        `https://cbt-api-a37x.onrender.com/api/tests/one?id=${id}`,
+        `${base_url}/tests/one?id=${id}`,
         {
           headers: {
             "content-type": "application/json",
@@ -208,7 +214,7 @@ export const AppProvider = ({ children }) => {
   ) => {
     try {
       const response = await axios.post(
-        `https://cbt-api-a37x.onrender.com/api/tests/answer?testId=${testId}&questionId=${questionId}&index=${index}`,
+        `${base_url}/tests/answer?testId=${testId}&questionId=${questionId}&index=${index}`,
         { answer },
         {
           headers: {
@@ -242,7 +248,7 @@ export const AppProvider = ({ children }) => {
   const getResultsByCourse = async (id) => {
     try {
       const response = await axios.get(
-        `https://cbt-api-a37x.onrender.com/api/tests/by-course?courseId=${id}`,
+        `${base_url}/tests/by-course?courseId=${id}`,
         {
           headers: {
             "content-type": "application/json",
@@ -264,7 +270,7 @@ export const AppProvider = ({ children }) => {
   const getResultsByStudent = async (id) => {
     try {
       const response = await axios.get(
-        `https://cbt-api-a37x.onrender.com/api/users/tests?id=${id}`,
+        `${base_url}/users/tests?id=${id}`,
         {
           headers: {
             "content-type": "application/json",
@@ -291,7 +297,7 @@ export const AppProvider = ({ children }) => {
   const getAllStudents = async () => {
     try {
       const response = await axios.get(
-        `https://cbt-api-a37x.onrender.com/api/users/students`,
+        `${base_url}/users/students`,
         {
           headers: {
             "content-type": "application/json",
@@ -317,7 +323,7 @@ export const AppProvider = ({ children }) => {
   const getOneStudent = async (id) => {
     try {
       const response = await axios.get(
-        `https://cbt-api-a37x.onrender.com/api/users/one?id=${id}`,
+        `${base_url}/users/one?id=${id}`,
         {
           headers: {
             "content-type": "application/json",

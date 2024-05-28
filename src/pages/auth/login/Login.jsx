@@ -20,13 +20,15 @@ const Login = () => {
 
   // const [switchAuthLayout, setSwitchAuthLayout] = useState("user");
 
+  const base_url = process.env.REACT_APP_BASE_URL;
+
   const Loginhandler = async (e) => {
     setLoading(true);
     console.log("LoginDetails", loginDetails);
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://cbt-api-a37x.onrender.com/api/auth/login",
+        `${base_url}/auth/login`,
         loginDetails,
         {
           headers: { "content-type": "application/json" },
@@ -45,8 +47,8 @@ const Login = () => {
       }
     } catch (err) {
       console.log(err);
-      error(err.response.data.message);
-      error(err.response.data.error);
+      error(err.response?.data?.message);
+      error(err.response?.data?.error);
       setLoading(false);
     }
   };

@@ -13,6 +13,8 @@ const EditQuestion = () => {
   //   oneQuestion
   // );
 
+  const base_url = process.env.REACT_APP_BASE_URL;
+
   const navigate = useNavigate();
 
   const goBack = async () => {
@@ -34,7 +36,7 @@ const EditQuestion = () => {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `https://cbt-api-a37x.onrender.com/api/questions/edit?id${oneQuestion._id}`,
+        `${base_url}/questions/edit?id${oneQuestion._id}`,
         questionDetails,
         {
           headers: { "content-type": "application/json" },

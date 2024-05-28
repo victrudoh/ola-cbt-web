@@ -7,6 +7,9 @@ import { success, error } from "../../../helpers/Alert";
 import Spinner from "../../../components/widgets/spinner/Spinner";
 
 const AddQuestion = () => {
+
+  const base_url = process.env.REACT_APP_BASE_URL;
+
   const navigate = useNavigate();
 
   const goBack = async () => {
@@ -31,7 +34,7 @@ const AddQuestion = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `https://cbt-api-a37x.onrender.com/api/questions/add?courseId=${courseId}`,
+        `${base_url}/questions/add?courseId=${courseId}`,
         questionDetails,
         {
           headers: { "content-type": "application/json" },
