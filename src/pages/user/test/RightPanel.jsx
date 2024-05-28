@@ -112,10 +112,10 @@ const RightPanel = () => {
             // className="w-[45%] rounded-md py-2 px-4 bg-gray-200 hover:bg-teal-100 cursor-pointer flex gap-4 items-center"
             className={
               questionIndex
-                ? oneTest?.questions[questionIndex].chosenAnswer === "answer_a"
+                ? oneTest?.questions[questionIndex]?.chosenAnswer === "answer_a"
                   ? "w-[45%] rounded-md py-2 px-4 bg-green-600 text-white hover:bg-teal-100 cursor-pointer flex gap-4 items-center hover:text-teal-700"
                   : "w-[45%] rounded-md py-2 px-4 bg-gray-200 hover:bg-teal-100 cursor-pointer flex gap-4 items-center"
-                : oneTest?.questions[0].chosenAnswer === "answer_a"
+                : oneTest?.questions[0]?.chosenAnswer === "answer_a"
                 ? "w-[45%] rounded-md py-2 px-4 bg-green-600 text-white hover:bg-teal-100 cursor-pointer flex gap-4 items-center"
                 : "w-[45%] rounded-md py-2 px-4 bg-gray-200 hover:bg-teal-100 cursor-pointer flex gap-4 items-center"
             }
@@ -125,8 +125,8 @@ const RightPanel = () => {
             </div>
             <div className="font-poppins text-sm font-normal leading-6 tracking-normal text-left">
               {questionIndex
-                ? oneTest?.questions[questionIndex].question.answer_a
-                : oneTest?.questions[0].question.answer_a}
+                ? oneTest?.questions[questionIndex]?.question.answer_a
+                : oneTest?.questions[0]?.question.answer_a}
             </div>
           </div>
           {/* answer */}
@@ -134,10 +134,10 @@ const RightPanel = () => {
             onClick={() => answerQuestionHandler("answer_b")}
             className={
               questionIndex
-                ? oneTest?.questions[questionIndex].chosenAnswer === "answer_b"
+                ? oneTest?.questions[questionIndex]?.chosenAnswer === "answer_b"
                   ? "w-[45%] rounded-md py-2 px-4 bg-green-600 text-white hover:bg-teal-100 cursor-pointer flex gap-4 items-center hover:text-teal-700"
                   : "w-[45%] rounded-md py-2 px-4 bg-gray-200 hover:bg-teal-100 cursor-pointer flex gap-4 items-center"
-                : oneTest?.questions[0].chosenAnswer === "answer_b"
+                : oneTest?.questions[0]?.chosenAnswer === "answer_b"
                 ? "w-[45%] rounded-md py-2 px-4 bg-green-600 text-white hover:bg-teal-100 cursor-pointer flex gap-4 items-center"
                 : "w-[45%] rounded-md py-2 px-4 bg-gray-200 hover:bg-teal-100 cursor-pointer flex gap-4 items-center"
             }
@@ -147,8 +147,8 @@ const RightPanel = () => {
             </div>
             <div className="font-poppins text-sm font-normal leading-6 tracking-normal text-left hover:text-teal-700">
               {questionIndex
-                ? oneTest?.questions[questionIndex].question.answer_b
-                : oneTest?.questions[0].question.answer_b}
+                ? oneTest?.questions[questionIndex]?.question.answer_b
+                : oneTest?.questions[0]?.question.answer_b}
             </div>
           </div>
           {/* answer */}
@@ -156,10 +156,10 @@ const RightPanel = () => {
             onClick={() => answerQuestionHandler("answer_c")}
             className={
               questionIndex
-                ? oneTest?.questions[questionIndex].chosenAnswer === "answer_c"
+                ? oneTest?.questions[questionIndex]?.chosenAnswer === "answer_c"
                   ? "w-[45%] rounded-md py-2 px-4 bg-green-600 text-white hover:bg-teal-100 cursor-pointer flex gap-4 items-center hover:text-teal-700"
                   : "w-[45%] rounded-md py-2 px-4 bg-gray-200 hover:bg-teal-100 cursor-pointer flex gap-4 items-center"
-                : oneTest?.questions[0].chosenAnswer === "answer_c"
+                : oneTest?.questions[0]?.chosenAnswer === "answer_c"
                 ? "w-[45%] rounded-md py-2 px-4 bg-green-600 text-white hover:bg-teal-100 cursor-pointer flex gap-4 items-center"
                 : "w-[45%] rounded-md py-2 px-4 bg-gray-200 hover:bg-teal-100 cursor-pointer flex gap-4 items-center"
             }
@@ -169,8 +169,8 @@ const RightPanel = () => {
             </div>
             <div className="font-poppins text-sm font-normal leading-6 tracking-normal text-left">
               {questionIndex
-                ? oneTest?.questions[questionIndex].question.answer_c
-                : oneTest?.questions[0].question.answer_c}
+                ? oneTest?.questions[questionIndex]?.question.answer_c
+                : oneTest?.questions[0]?.question.answer_c}
             </div>
           </div>
           {/* answer */}
@@ -178,10 +178,10 @@ const RightPanel = () => {
             onClick={() => answerQuestionHandler("answer_d")}
             className={
               questionIndex
-                ? oneTest?.questions[questionIndex].chosenAnswer === "answer_d"
+                ? oneTest?.questions[questionIndex]?.chosenAnswer === "answer_d"
                   ? "w-[45%] rounded-md py-2 px-4 bg-green-600 text-white hover:bg-teal-100 cursor-pointer flex gap-4 items-center"
                   : "w-[45%] rounded-md py-2 px-4 bg-gray-200 hover:bg-teal-100 cursor-pointer flex gap-4 items-center hover:text-teal-700"
-                : oneTest?.questions[0].chosenAnswer === "answer_d"
+                : oneTest?.questions[0]?.chosenAnswer === "answer_d"
                 ? "w-[45%] rounded-md py-2 px-4 bg-green-600 text-white hover:bg-teal-100 cursor-pointer flex gap-4 items-center"
                 : "w-[45%] rounded-md py-2 px-4 bg-gray-200 hover:bg-teal-100 cursor-pointer flex gap-4 items-center"
             }
@@ -191,8 +191,8 @@ const RightPanel = () => {
             </div>
             <div className="font-poppins text-sm font-normal leading-6 tracking-normal text-left">
               {questionIndex
-                ? oneTest?.questions[questionIndex].question.answer_d
-                : oneTest?.questions[0].question.answer_d}
+                ? oneTest?.questions[questionIndex]?.question.answer_d
+                : oneTest?.questions[0]?.question.answer_d}
             </div>
           </div>
         </div>
